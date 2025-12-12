@@ -1,0 +1,22 @@
+{% extends "layout.html" %} {% block title %}Главная{% endblock %} {% block
+content %}
+<div class="row">
+	<div class="col-md-8 offset-md-2 text-center">
+		<h1>Добро пожаловать в BigData App</h1>
+		<p class="lead">
+			Интеллектуальная система для анализа больших данных с использованием
+			машинного обучения
+		</p>
+		<p>Загружайте датасеты, тренируйте модели и получайте предсказания.</p>
+		{% if not current_user.is_authenticated %}
+		<a href="{{ url_for('routes.register') }}" class="btn btn-primary btn-lg"
+			>Начать</a
+		>
+		{% else %}
+		<a href="{{ url_for('routes.dashboard') }}" class="btn btn-primary btn-lg"
+			>Перейти к дашборду</a
+		>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
