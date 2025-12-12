@@ -1,0 +1,81 @@
+{% extends "layout.html" %} {% block title %}Тренировка модели{% endblock %} {%
+block content %}
+<div class="row justify-content-center">
+	<div class="col-md-8">
+		<div class="card">
+			<div class="card-header">
+				<h3>Тренировка модели для датасета: {{ dataset.filename }}</h3>
+			</div>
+			<div class="card-body">
+				<form method="POST">
+					<div class="mb-3">
+						<label for="model_name" class="form-label">Название модели</label>
+						<input
+							type="text"
+							class="form-control"
+							id="model_name"
+							name="model_name"
+							required
+						/>
+					</div>
+					<div class="mb-3">
+						<label for="model_type" class="form-label">Тип модели</label>
+						<select
+							class="form-control"
+							id="model_type"
+							name="model_type"
+							required
+						>
+							<option value="regression">Регрессия</option>
+							<option value="classification">Классификация</option>
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="target_column" class="form-label"
+							>Целевая колонка</label
+						>
+						<select
+							class="form-control"
+							id="target_column"
+							name="target_column"
+							required
+						>
+							{% for column in columns %}
+							<option value="{{ column }}">{{ column }}</option>
+							{% endfor %}
+						</select>
+					<div class="mb-3">
+						<label for="status_id" class="form-label">Статус</label>
+						<select
+							class="form-control"
+							id="status_id"
+							name="status_id"
+							required
+						>
+							{% for status in statuses %}
+							<option value="{{ status.id }}">{{ status.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="project_type_id" class="form-label">Тип проекта</label>
+						<select
+							class="form-control"
+							id="project_type_id"
+							name="project_type_id"
+							required
+						>
+							{% for pt in project_types %}
+							<option value="{{ pt.id }}">{{ pt.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">
+						Начать тренировку
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
