@@ -1,0 +1,65 @@
+{% extends "layout.html" %} {% block title %}Дашборд{% endblock %} {% block
+content %}
+<h2>Добро пожаловать, {{ current_user.username }}!</h2>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-header">
+				<h5>Ваши датасеты</h5>
+			</div>
+			<div class="card-body">
+				{% if datasets %}
+				<ul class="list-group">
+					{% for dataset in datasets %}
+					<li
+						class="list-group-item d-flex justify-content-between align-items-center"
+					>
+						{{ dataset.filename }}
+						<a
+							href="{{ url_for('routes.train', dataset_id=dataset.id) }}"
+							class="btn btn-sm btn-primary"
+							>Тренировать модель</a
+						>
+					</li>
+					{% endfor %}
+				</ul>
+				{% else %}
+				<p>Нет загруженных датасетов.</p>
+				{% endif %}
+				<a href="{{ url_for('routes.upload') }}" class="btn btn-success mt-3"
+					>Загрузить датасет</a
+				>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-header">
+				<h5>Ваши модели</h5>
+			</div>
+			<div class="card-body">
+				{% if models %}
+				<ul class="list-group">
+					{% for model in models %}
+					<li
+						class="list-group-item d-flex justify-content-between align-items-center"
+					>
+						{{ model.name }} ({{ model.model_type }})
+						<a
+							href="{{ url_for('routes.predict', model_id=model.id) }}"
+							class="btn btn-sm btn-secondary"
+							>Предсказать</a
+						>
+					</li>
+					{% endfor %}
+				</ul>
+				{% else %}
+				<p>Нет обученных моделей.</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
